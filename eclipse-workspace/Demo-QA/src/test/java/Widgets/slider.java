@@ -1,15 +1,12 @@
 package Widgets;
 
 import java.time.Duration;
-
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -27,55 +24,48 @@ public class slider
 		ChromeOptions co=new ChromeOptions();
 		co.setBinary("D:\\Ashish\\app\\chrome 103.0.5060.53\\chrome-win64 (1)\\chrome-win64\\chrome.exe");  	
 		driver=new ChromeDriver();
-		driver.get("https://demoqa.com/");
-		Thread.sleep(4000);	
-		driver.manage().window().maximize();
-		Thread.sleep(3500);
-		driver.findElement(By.xpath("(//div[@class='card mt-4 top-card'])[4]")).click();
-		Thread.sleep(4000);	
-		org.openqa.selenium.JavascriptExecutor js=(org.openqa.selenium.JavascriptExecutor)driver;
-		js.executeScript("window.scrollBy(0,500)"); 
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//li[@id='item-3'])[3]")).click();  
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-		
+		driver.get("https://demoqa.com/slider/");
+		//Maximise browser window
+	    driver.manage().window().maximize();
 	}
-	
+		
+	@Test(priority=1)
+	public void Default_Slider() 
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(04));
+		//Get default value  of slider
+		String r=driver.findElement(By.xpath("//input[@id='sliderValue']")).getDomAttribute("value");
+		String l="25";
+        Assert.assertEquals(r, l);			
+	}
 
-//	@Test(priority=1)
-//	public static void Default_Slider() 
-//	{
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(02));
-//		//Get default value  of slider
-//		String r=driver.findElement(By.xpath("//input[@id='sliderValue']")).getDomAttribute("value");
-//		String l="25";
-//        Assert.assertEquals(r, l);			
-//	}
 	
 	@Test(priority=2)
-	public void Select_slider_82() throws InterruptedException
+	public void uj() throws InterruptedException
 	{
-		Actions act=new Actions(driver);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));        
-        WebElement slider = driver.findElement(By.xpath("//div[@class='range-slider__tooltip__arrow']"));
-        for(int i=0;i<=30;i++){
-                       act.clickAndHold(slider).perform();
-                       
-                        Thread.sleep(2000);
-                    }
-        
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
-        String bh=driver.findElement(By.xpath("//input[@id='sliderValue']")).getDomAttribute("value");
-		System.out.println(bh);
-		
-		
+		    
+		//Adding wait 
+		driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+	                
+	        //Instantiate Action Class        
+	        Actions actions = new Actions(driver);
+	        //Retrieve WebElemnt 'slider' to perform mouse hover 
+	    	WebElement slider = driver.findElement(By.id("sliderContainer"));
+	    	Thread.sleep(3000);
+	    	//Move mouse to x offset 50 i.e. in horizontal direction
+	    	actions.moveToElement(slider,150,0).perform();
+	    	Thread.sleep(3000);
+	    	slider.click();
+	    	System.out.println("Moved slider in horizontal directions");
+	    	Thread.sleep(4000);
+	    	
+	    	driver.quit();
+	    	
 	}
-	
-	
 	@AfterTest
 	public void End_browser()
 	{
-		driver.quit();
+		driver.close();
 	}
 	
 

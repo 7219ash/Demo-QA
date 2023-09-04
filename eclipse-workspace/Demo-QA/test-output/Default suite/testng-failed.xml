@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Widgets.slider">
+      <class name="Interactions.Draggable">
         <methods>
-          <include name="Select_slider_82"/>
-          <include name="End_browser"/>
           <include name="setup"/>
+          <include name="End_browser"/>
+          <include name="Container_restricted"/>
         </methods>
-      </class> <!-- Widgets.slider -->
+      </class> <!-- Interactions.Draggable -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

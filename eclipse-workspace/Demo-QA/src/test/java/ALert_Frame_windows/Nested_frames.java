@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
@@ -40,25 +41,31 @@ public class Nested_frames
 	public void PrentframeTochild_frame()
 	{
 		
-		driver.switchTo().frame("frame1");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-		String yj=driver.findElement(By.xpath("//iframe[@id='frame1']/body[@xpath='1']")).getText();
-		System.out.println("pradnya=   "+yj);
-				
-		driver.switchTo().defaultContent();
+//		driver.switchTo().frame("frame1");
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+//		String yj=driver.findElement(By.xpath("//iframe[@id='frame1']/body[@xpath='1']")).getText();
+//		System.out.println("pradnya=   "+yj);
+//				
+//		driver.switchTo().defaultContent();
 		
 	}
 	
 	@Test (priority=2)
 	public void Child_To_parent()
 	{
-		driver.switchTo().frame("frame2");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-		String j=driver.findElement(By.xpath("//iframe[@srcdoc='<p>Child Iframe</p>']")).getText();
-		System.out.println("uk is the=   "+j);
+//		driver.switchTo().frame("frame2");
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+//		String j=driver.findElement(By.xpath("//iframe[@srcdoc='<p>Child Iframe</p>']")).getText();
+//		System.out.println("uk is the=   "+j);
+//		driver.switchTo().defaultContent();
+	
 		
 		
-		driver.switchTo().defaultContent();
+		
+		
+		driver.switchTo().frame("frame1");
+
+		
 		
 	}
 	 
@@ -66,7 +73,7 @@ public class Nested_frames
 	@AfterTest
 	public void Close_browser()
 	{
-	//	driver.quit();
+		driver.quit();
 	}
 	
 }

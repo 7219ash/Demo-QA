@@ -1,10 +1,12 @@
 package ALert_Frame_windows;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -17,6 +19,7 @@ public class Frames
 	@BeforeTest
 	public void setup() throws InterruptedException
 	{
+		
 		System.setProperty("webdriver.chrome.driver", "D:\\Ashish\\app\\chrome 103.0.5060.53 driver\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 		ChromeOptions co=new ChromeOptions();
 		co.setBinary("D:\\Ashish\\app\\chrome 103.0.5060.53\\chrome-win64 (1)\\chrome-win64\\chrome.exe");  	
@@ -34,42 +37,41 @@ public class Frames
 		
 	}
 	
-//	@Test
-//	public void frames() throws InterruptedException
-//	{
-//		String o,p;
-//		org.openqa.selenium.JavascriptExecutor ms=(org.openqa.selenium.JavascriptExecutor)driver;
-//		ms.executeScript("window.scrollBy(0,500)");
-//        driver.switchTo().frame(1);
-//        o=driver.getTitle();
-//        System.out.println(o);
-//        Thread.sleep(3000);
-//        driver.switchTo().frame(2);
-//		p=driver.getTitle();
-//		System.out.println(p);
-//		Thread.sleep(4000);
-//		
-//	
-//	} 
+	
+	@Test
+	public void frames() throws InterruptedException
+	{
+		String o,p;
+		org.openqa.selenium.JavascriptExecutor ms=(org.openqa.selenium.JavascriptExecutor)driver;
+		ms.executeScript("window.scrollBy(0,500)");
+        driver.switchTo().frame(1);
+        o=driver.getTitle();
+        System.out.println(o);
+        Thread.sleep(3000);
+        driver.switchTo().frame(2);
+		p=driver.getTitle();
+		System.out.println(p);
+		Thread.sleep(4000);
+		
+	
+	} 
 	
 	
 	@Test (priority=2)
 	public void Frame() throws InterruptedException
 	{
-		Thread.sleep(2000);
-		//Switch to Frame using Index
-        driver.switchTo().frame(1);
-        
-        //Identifying the heading in webelement
-        WebElement frame1Heading= driver.findElement(By.xpath("//h1[1]"));
-        
-        //Finding the text of the heading
-        String frame1Text=frame1Heading.getText();
-        
-        //Print the heading text
-        System.out.println(frame1Text);
+		// checking switch frame 2 to frame 1		
+		org.openqa.selenium.JavascriptExecutor js=(org.openqa.selenium.JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,300)"); 
+		driver.findElement(By.xpath("//iframe[@id='frame2']")).click();
+        String vb=driver.findElement(By.xpath("//iframe[@id='frame2']")).getDomAttribute("id");
+        driver.switchTo().parentFrame();
+        String vn=driver.findElement(By.xpath("//iframe[@id='frame1']")).getDomAttribute("id");
+        Assert.assertNotEquals(vn, vb);
         
 	}
+	
+
 
 	@AfterTest
 	public void end_browser()

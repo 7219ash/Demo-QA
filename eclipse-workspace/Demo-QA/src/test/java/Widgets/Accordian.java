@@ -68,7 +68,8 @@ public class Accordian
 	{	
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(13));
 		org.openqa.selenium.JavascriptExecutor hn=(org.openqa.selenium.JavascriptExecutor)driver;
-		hn.executeScript("window.scrollBy(0,100)");
+		hn.executeScript("window.scrollBy(0,400)");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 		driver.findElement(By.id("section3Heading")).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 		String w=driver.findElement(By.xpath("//div[@id='section3Content']")).getText();
@@ -76,13 +77,14 @@ public class Accordian
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 		String e="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
 		Assert.assertEquals(e, w, "yes it is not ok");	
-		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(13));
+
 	}
 		
 	@AfterTest
 	public void End_browser()
 	{
-	//	driver.quit();
+		driver.quit();
 	}
 	
 }

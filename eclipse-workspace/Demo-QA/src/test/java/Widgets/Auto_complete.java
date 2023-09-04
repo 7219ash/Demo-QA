@@ -6,15 +6,22 @@ import java.awt.event.KeyEvent;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import groovyjarjarantlr4.v4.codegen.model.Action;
+
+@Test
 public class Auto_complete 
 {
 	WebDriver driver;
@@ -38,30 +45,59 @@ public class Auto_complete
 		driver.findElement(By.xpath("(//li[@id='item-1'])[3]")).click();  
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
 		
-	}
-	
-	@Test
-	public void Multicolour() throws AWTException, InterruptedException
+	}  
+	 
+
+	@Test(priority=0)
+	public void Multicolour() throws AWTException, InterruptedException  
 	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
-		driver.findElement(By.xpath("//div[@id='autoCompleteMultipleContainer']")).sendKeys("Black");
-	//	driver.findElement(By.xpath("(//div[@class='auto-complete__control css-yk16xz-control'])[1]")).sendKeys("Black");
-	//	driver.findElement(By.xpath("//div[@class='auto-complete__value-container auto-complete__value-container--is-multi css-1hwfws3']")).sendKeys("Black");
+	
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		String[] arr= {"RED", "Black" ,"Yellow","Blue"};
+		for(int i=0;i<arr.length;i++)
+		{
+		driver.findElement(By.xpath("//div[@class='auto-complete__input']/input[@id='autoCompleteMultipleInput']")).sendKeys(arr[i]);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+		
+	    Robot ro=new Robot();
+		ro.keyPress(KeyEvent.VK_ENTER);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+		ro.keyRelease(KeyEvent.VK_ENTER);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        String fv=driver.findElement(By.xpath("//div[@class='auto-complete__input']/input[@id='autoCompleteMultipleInput']")).getText();
+        System.out.println(fv);
+		
+        Thread.sleep(5000);
+		}
+		Thread.sleep(8000);
+	}    
+	
+	
+	@Test(priority=1) 
+	public void sinle_color() throws AWTException, InterruptedException
+	{
+		
+		Thread.sleep(7000);
+		String r="Red";
+		driver.findElement(By.id("autoCompleteSingleContainer")).click();
+		driver.findElement(By.xpath("//input[@id='autoCompleteSingleInput']")).sendKeys(r);
+		driver.manage().timeouts().implicitlyWait(Duration .ofSeconds(2));
+        Robot tx=new Robot();
         
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
-		String u=driver.findElement(By.xpath("//div[@id='autoCompleteMultipleContainer']")).getText();
-		//String u=driver.findElement(By.xpath("(//div[@class='auto-complete__control css-yk16xz-control'])[1]")).getText();
-		//String u=driver.findElement(By.xpath("//div[@class='auto-complete__value-container auto-complete__value-container--is-multi css-1hwfws3']")).getText();
-	        
-		System.out.println(u);
+        tx.keyPress(KeyEvent.VK_ENTER);
+		tx.keyRelease(KeyEvent.VK_ENTER);
+		String w=driver.findElement(By.xpath("//div[@class='auto-complete__single-value css-1uccc91-singleValue']")).getText();
+		Assert.assertEquals(w,r);	
 		
 	}
 	    
 	
+	
 	@AfterTest
 	public void End_browser()
 	{
-		//driver.quit();
+		driver.quit();
 	}
 
 }

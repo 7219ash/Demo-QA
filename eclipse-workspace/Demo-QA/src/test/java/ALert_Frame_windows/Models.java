@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
@@ -30,7 +31,7 @@ public class Models
 		org.openqa.selenium.JavascriptExecutor js=(org.openqa.selenium.JavascriptExecutor)driver;
 		js.executeScript("window.scrollBy(0,500)"); 
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//li[@id='item-4'])[2]")).click();  
+		driver.findElement(By.xpath("(//li[@id='item-4'])[1]")).click();  
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
 		//org.openqa.selenium.JavascriptExecutor je=(org.openqa.selenium.JavascriptExecutor)driver;
 		 //je.executeScript("window.scrollBy(0,-250)");
@@ -67,6 +68,7 @@ public class Models
     	  driver.findElement(By.xpath("//button[@id='closeLargeModal']")).click();
     	  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
 
+    	  	    
       }
       
       @AfterTest
